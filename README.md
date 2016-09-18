@@ -3,9 +3,7 @@
 
 name:
 
-email:
-
-NCSU id:
+Unity id:
 
 ## Level 1
 
