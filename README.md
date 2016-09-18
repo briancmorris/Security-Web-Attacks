@@ -1,8 +1,10 @@
 # README
 ## Author
 
-name: 
+name:
+
 email:
+
 NCSU id:
 
 ## Level 1
