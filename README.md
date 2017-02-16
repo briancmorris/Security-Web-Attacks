@@ -30,27 +30,3 @@ Unity id:
 ## Level 6
 ### Vulnerability:
 ### Description:
-
-## Level 7
-### Vulnerability:
-### Description:
-
-## Level 8
-### Vulnerability:
-### Description:
-
-## Level 9
-### Vulnerability:
-### Description:
-
-## Level 10
-### Vulnerability:
-### Description:
-
-## Level 11
-### Vulnerability:
-### Description:
-
-## Level 12
-### Vulnerability:
-### Description:
