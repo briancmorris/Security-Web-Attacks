@@ -36,3 +36,27 @@ Unity id:
 [insert vulnerability here]
 ### Description:
 [insert description here]
+
+## Level 7
+### Vulnerability:
+[insert vulnerability here]
+### Description:
+[insert description here]
+
+## Level 8
+### Vulnerability:
+[insert vulnerability here]
+### Description:
+[insert description here]
+
+## Level 9
+### Vulnerability:
+[insert vulnerability here]
+### Description:
+[insert description here]
+
+## Level 10
+### Vulnerability:
+[insert vulnerability here]
+### Description:
+[insert description here]
