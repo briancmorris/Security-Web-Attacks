@@ -23,9 +23,15 @@ The documentation for the function String.fromCharCode() can be found here: http
 
 ## Level 3
 ### Vulnerability:
-[insert vulnerability here]
+The author of the webpage allows indicates if the password is incorrect in real time. Allowing a user to easily brute-force the password.
 ### Description:
-[insert description here]
+I noticed that when I input most characters into the password field that the page immediately loaded an error message indicating that I input the wrong password. When I cleared the password field and input the character 'f', the error message disappeared. This indicated that my input was checked against the valid password on every keystroke.
+
+I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. I examined the body tag and started typing input to the password field. I noticed that the div tag labeled with the class "errors" only populated when an incorrect character was input. This confirmed that my input was checked in real time.
+
+Knowing that all of the flags, so far, started with flag{ I input this string and no error message appeared. I continued to manually brute force the password until I reached the closing brace of the flag. This resulted in the flag: flag{bytebybytegoesyoursecurity}
+
+Clicking the submit button resulted in a success message, indicating that I had found the flag.
 
 ## Level 4
 ### Vulnerability:
