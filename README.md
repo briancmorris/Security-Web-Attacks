@@ -53,9 +53,15 @@ The documentation for the function String.fromCharCode() can be found here: http
 
 ## Level 8
 ### Vulnerability:
-[insert vulnerability here]
+The author of the webpage allows the user to overwrite variables stored on the webpage. In particular, the variable $filename is what causes the vulnerability. By overwriting this variable, we are able to bypass the requirements to access the flag.
 ### Description:
-[insert description here]
+First, I input a guess '1' and clicked the guess button. I noticed that the URL changed to: http://hw1.kapravelos.com:8088/index.php?attempt=1, noting that it appeared to assign a value to a variable named 'attempt'.
+
+I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. By expanding the <body> tag, I observed that there was an unused anchor tag <a href="/?hl"></a>. Notably, there is no text within the anchor tag, so the link will never appear on the webpage. By adding text, I can then click the link (or manually type in the link) to take me to a new webpage: http://hw1.kapravelos.com:8088/?hl
+
+Here I saw that the PHP code checks my guesses (stored in $attempt) against the contents of the file: 'secret-combination.txt' (stored in $combination). Because of how the author implemented the webpage, I can overwrite the variable $filename by specifying a value within the URL to a filename that does not exist on the system. In doing so, the value of $combination is empty, and I can then insert an empty value for attempt.
+
+By changing the URL to: http://hw1.kapravelos.com:8088/index.php?filename=blah&attempt= I overwrite $filename to be 'blah' and attempt to be an empty string. Navigating to the above URL results in a page that reveals the flag: flag{extractallthevariables!}
 
 ## Level 9
 ### Vulnerability:
