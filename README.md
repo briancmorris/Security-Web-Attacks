@@ -35,9 +35,11 @@ Clicking the submit button resulted in a success message, indicating that I had 
 
 ## Level 4
 ### Vulnerability:
-[insert vulnerability here]
+The author of the webpage has the flag revealed in the server response.
 ### Description:
-[insert description here]
+I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. While inspecting the webpage I did not notice anything out of the ordinary, so I began to experiment with burp to see what I could find.
+
+After burp was started, I turned intercept off under the proxy tab. I then navigated to the homework page for problem 4. On the target tab, I expanded the drop-down menu for https://hw1.kapravelos.com, expanded the HW folder, then clicked the webpage labeled 4. In the center window, I clicked the response tab for webpage 4. The flag labeled X-Flag was clearly visible. The listed flag was: flag{cust0mHe@dersisthefutur3}
 
 ## Level 5
 ### Vulnerability:
