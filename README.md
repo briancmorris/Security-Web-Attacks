@@ -1,11 +1,17 @@
 # README
 ## Author
 
-name:
+name: Brian Morris
 
-email:
+email: bcmorri3@ncsu.edu
 
-Unity id:
+Unity id: bcmorri3
+
+## Level 1
+### Vulnerability:
+[insert vulnerability here]
+### Description:
+[insert description here]
 
 ## Level 2
 ### Vulnerability:
