@@ -96,9 +96,15 @@ By changing the URL to: http://hw1.kapravelos.com:8088/index.php?filename=blah&a
 
 ## Level 9
 ### Vulnerability:
-[insert vulnerability here]
+The author of the webpage allows the user to overwrite URL parameters that execute a PHP function. By editing the cookie value of "challenge", a user can access the flag by injecting PHP code.
 ### Description:
-[insert description here]
+The first thing I did upon reaching the webpage was open the source code to inspect. Observing the php code below the HTML shows us a switch statement that changes on the page URL that is input. The default page, introduction page, and privacy page indicate nothing of interest. Notably, the contactus page randomly generates a value and stores it in the variable $rand. It then sets the cookie value 'challenge'. The captcha page then echos the value of challenge.
+
+By navigating to contactus (http://hw1.kapravelos.com:8089/?page=contactus) and then captcha (http://hw1.kapravelos.com:8089/?page=captcha), we can see the value of challenge.
+
+Finally, when examining the captcha-verify page in the PHP code, we see the definition for a function called verifyFromMath. The function is called if the request variable 'answer' and 'method' are set to some value. The if statement allows me to change the values of answer and method to execute verifyFromMath. verifyFromMath directly inputs the value of challenge to the webpage. By changing the value of challenge to a PHP code fragment, I can execute the code on the webpage.
+
+After launching burp, turn off intercept and navigate to the contactus page (http://hw1.kapravelos.com:8089/?page=contactus). This generates the value of challenge. Now, turn intercept on and attempt to load captcha-verify (http://hw1.kapravelos.com:8089/?page=captcha-verify). Click the params tag of the prompt that appears. Note, the URL parameters answer and method are missing. I added these two parameters by clicking the "add" button, ensuring that it remained a URL variable, and entering their names. Double clicking the value field allowed me to change their values to a for answer and b for method. I then changed the value of challenge to: print_r(file_get_contents("flag.txt")). After clicking the forward button, the webpage is reloaded and displays the flag: flag{inj3ctingPHPis3vil}.
 
 ## Level 10
 ### Vulnerability:
