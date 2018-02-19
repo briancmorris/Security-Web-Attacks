@@ -52,12 +52,17 @@ page loaded. Initially, nothing was stored except for the session value. I then 
 
 I then changed the resulting string to {"admin" : true} and re-encoded the auth token to base 64 using the same website. I then cut and paste the newly encoded auth value (auth=eyJhZG1pbiIgOiB0cnVlfQ==) into burp where the auth token was stored. Pressing the "forward" button again revealed the token: flag{c00ki3s3curit7sisam0nst3r}
 
-The website used to encode and decode the tokens in base 64 was: https://www.base64decode.org/
+The website I used to encode and decode the tokens in base 64 was: https://www.base64decode.org/
+
 ## Level 6
 ### Vulnerability:
 [insert vulnerability here]
 ### Description:
-[insert description here]
+I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. While inspecting the webpage I did not notice anything out of the ordinary, so I began to experiment with burp to see what I could find.
+
+After burp was started, I left intercept on under the proxy tab so that the webpage could be in steps. I then navigated to the homework page for problem 6. I continued to press the "forward" button until the webpage loaded completely. I inspected the HTTP header and cookies until I saw the header value: "User-Agent". Since the webpage specified that it was only compatible with Mosaic running on Windows, I researched some common User-Agents that were used with Mosaic. In Burp, I changed my User-Agent to: "Mosaic/0.2 (Windows 95)". I then pressed the forward button and the flag was revealed. The flag was: flag{0ldsch00lbr0wser}
+
+The website I used to research Mosaic user-agents was: https://developers.whatismybrowser.com/useragents/explore/software_name/mosaic/
 
 ## Level 7
 ### Vulnerability:
