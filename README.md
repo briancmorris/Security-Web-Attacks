@@ -56,7 +56,7 @@ The website I used to encode and decode the tokens in base 64 was: https://www.b
 
 ## Level 6
 ### Vulnerability:
-[insert vulnerability here]
+The author of the webpage checks for a specific web browser's User-Agent which can be overwritten by a user to gain access to the flag.
 ### Description:
 I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. While inspecting the webpage I did not notice anything out of the ordinary, so I began to experiment with burp to see what I could find.
 
