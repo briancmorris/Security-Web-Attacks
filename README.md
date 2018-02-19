@@ -66,9 +66,21 @@ The website I used to research Mosaic user-agents was: https://developers.whatis
 
 ## Level 7
 ### Vulnerability:
-[insert vulnerability here]
+The author of the webpage does not check what type of file is uploaded and therefore php code can be executed to reveal the flag.
 ### Description:
-[insert description here]
+I first tried uploading a picture to see how it changed the contents of the HTML page. I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. I saw that the name of the picture I uploaded could be found within the body->center->div->img tag. The image source was specified to be located in a subfolder called uploads. This indcated two things to me. First, the author doesn't check the type of input file, and blindly displays the file after uploading. If a php file is input, the php code will execute natively, since it is being injected directly into the webpage.
+
+Now knowing where my uploaded file is stored, I uploaded a php file (named: haxor.php) to echo the contents of flag.txt.
+
+The following code was uploaded:
+
+<?php
+echo file_get_contents("../flag.txt");
+?>
+
+Note: the image source is stored in a subfolder, so I needed to add "../" to the php code to ensure that the contents of flag.txt would be echoed.
+
+By navigating to the location of my stored file (http://hw1.kapravelos.com:8087/uploads/haxor.php), I was able to retrieve the flag. The flag was: flag{3x3cut3afterupl0ad}.
 
 ## Level 8
 ### Vulnerability:
