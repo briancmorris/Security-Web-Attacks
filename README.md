@@ -1,7 +1,7 @@
 # README
 ## Author
 
-name: Brian Morris
+name: Brian C. Morris
 
 email: bcmorri3@ncsu.edu
 
@@ -43,7 +43,7 @@ After burp was started, I turned intercept off under the proxy tab so that the w
 
 ## Level 5
 ### Vulnerability:
-The author of the webpage allows the user to overwrite their cookies to gain admin privelages.
+The author of the webpage allows the user to overwrite their cookies to gain admin privileges.
 ### Description:
 I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. While inspecting the webpage I did not notice anything out of the ordinary, so I began to experiment with burp to see what I could find.
 
@@ -68,7 +68,7 @@ The website I used to research Mosaic user-agents was: https://developers.whatis
 ### Vulnerability:
 The author of the webpage does not check what type of file is uploaded and therefore php code can be executed to reveal the flag.
 ### Description:
-I first tried uploading a picture to see how it changed the contents of the HTML page. I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. I saw that the name of the picture I uploaded could be found within the body->center->div->img tag. The image source was specified to be located in a subfolder called uploads. This indcated two things to me. First, the author doesn't check the type of input file, and blindly displays the file after uploading. If a php file is input, the php code will execute natively, since it is being injected directly into the webpage.
+I first tried uploading a picture to see how it changed the contents of the HTML page. I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. I saw that the name of the picture I uploaded could be found within the body->center->div->img tag. The image source was specified to be located in a subfolder called uploads. This indicated two things to me. First, the author doesn't check the type of input file, and blindly displays the file after uploading. If a php file is input, the php code will execute natively, since it is being injected directly into the webpage.
 
 Now knowing where my uploaded file is stored, I uploaded a php file (named: haxor.php) to echo the contents of flag.txt.
 
@@ -98,7 +98,7 @@ By changing the URL to: http://hw1.kapravelos.com:8088/index.php?filename=blah&a
 ### Vulnerability:
 The author of the webpage allows the user to overwrite URL parameters that execute a PHP function. By editing the cookie value of "challenge", a user can access the flag by injecting PHP code.
 ### Description:
-The first thing I did upon reaching the webpage was open the source code to inspect. Observing the php code below the HTML shows us a switch statement that changes on the page URL that is input. The default page, introduction page, and privacy page indicate nothing of interest. Notably, the contactus page randomly generates a value and stores it in the variable $rand. It then sets the cookie value 'challenge'. The captcha page then echos the value of challenge.
+The first thing I did upon reaching the webpage was open the source code to inspect. Observing the php code below the HTML shows us a switch statement that changes on the page URL that is input. The default page, introduction page, and privacy page indicate nothing of interest. Notably, the contactus page randomly generates a value and stores it in the variable $rand. It then sets the cookie value 'challenge'. The captcha page then echoes the value of challenge.
 
 By navigating to contactus (http://hw1.kapravelos.com:8089/?page=contactus) and then captcha (http://hw1.kapravelos.com:8089/?page=captcha), we can see the value of challenge.
 
