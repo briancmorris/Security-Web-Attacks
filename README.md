@@ -125,6 +125,8 @@ This is the script that was used:
 #!/bin/sh
 cat /var/www/html/flag.txt>> "./605521";
 
+Note: The document root is listed as: /var/www/html on the PHP configuration page.
+
 Using this website: https://www.urlencoder.org/ I encoded my script to standard URL encoding schemes. Note: The website that generates the URL encoding inserts %0D%0A as the newline character, I removed the %0D to ensure it was compatible with Linux systems.
 
 This provided me with the URL code: %23%21%2Fbin%2Fsh%0Acat%20%2Fvar%2Fwww%2Fhtml%2Fflag.txt%3E%3E%20%22.%2F605521%22%3B
