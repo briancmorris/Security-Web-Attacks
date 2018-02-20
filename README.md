@@ -17,7 +17,7 @@ I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the
 ### Vulnerability:
 The author of the webpage has hidden the flag behind a password, but has not hidden the script that generates the flag.
 ### Description:
-I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. By examining the body tag, and then the script tag, I could see the JavaScript that generates the flag's value. At the end of the script, I observed that flag is set to the value of cflag. This means that if I can determine the generated cflag, I know what the flag is. By examining the JavaScript, I saw that the string obf is split into an array of substrings by using the delimiter "_". The script then calls the JavaScript function: String.fromCharCode() for each value in the array. By looking at the documentation of String.fromCharCode(), we know that the function converts the given string to an ASCII character. By converting each of the ASCII codes stored in obf, we get the result: flag{j4v45cr1p7_15_7h3_fu7ur3}
+I inspected the HTML elements by opening Chrome's webtools (F12) and clicked the elements tab. By examining the body tag, and then the script tag, I could see the JavaScript that generates the flag's value. At the end of the script, I observed that flag is set to the value of cflag. This means that if I can determine the generated cflag, I know what the flag is. By examining the JavaScript, I saw that the string obf is split into an array of substrings by using the delimiter "_". The script then calls the JavaScript function: String.fromCharCode() for each value in the array. By looking at the documentation of String.fromCharCode(), I learned that the function converts the given string to an ASCII character. By converting each of the ASCII codes stored in obf, I got the result: flag{j4v45cr1p7_15_7h3_fu7ur3}
 
 The documentation for the function String.fromCharCode() can be found here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode
 
@@ -84,7 +84,7 @@ By navigating to the location of my stored file (http://hw1.kapravelos.com:8087/
 
 ## Level 8
 ### Vulnerability:
-The author of the webpage allows the user to overwrite variables stored on the webpage. In particular, the variable $filename is what causes the vulnerability. By overwriting this variable, we are able to bypass the requirements to access the flag.
+The author of the webpage allows the user to overwrite variables stored on the webpage. In particular, the variable $filename is what causes the vulnerability. By overwriting this variable, I am able to bypass the requirements to access the flag.
 ### Description:
 First, I input a guess '1' and clicked the guess button. I noticed that the URL changed to: http://hw1.kapravelos.com:8088/index.php?attempt=1, noting that it appeared to assign a value to a variable named 'attempt'.
 
@@ -100,9 +100,9 @@ The author of the webpage allows the user to overwrite URL parameters that execu
 ### Description:
 The first thing I did upon reaching the webpage was open the source code to inspect. Observing the php code below the HTML shows us a switch statement that changes on the page URL that is input. The default page, introduction page, and privacy page indicate nothing of interest. Notably, the contactus page randomly generates a value and stores it in the variable $rand. It then sets the cookie value 'challenge'. The captcha page then echoes the value of challenge.
 
-By navigating to contactus (http://hw1.kapravelos.com:8089/?page=contactus) and then captcha (http://hw1.kapravelos.com:8089/?page=captcha), we can see the value of challenge.
+By navigating to contactus (http://hw1.kapravelos.com:8089/?page=contactus) and then captcha (http://hw1.kapravelos.com:8089/?page=captcha), I can see the value of challenge.
 
-Finally, when examining the captcha-verify page in the PHP code, we see the definition for a function called verifyFromMath. The function is called if the request variable 'answer' and 'method' are set to some value. The if statement allows me to change the values of answer and method to execute verifyFromMath. verifyFromMath directly inputs the value of challenge to the webpage. By changing the value of challenge to a PHP code fragment, I can execute the code on the webpage.
+Finally, when examining the captcha-verify page in the PHP code, I can see the definition for a function called verifyFromMath. The function is called if the request variable 'answer' and 'method' are set to some value. The if statement allows me to change the values of answer and method to execute verifyFromMath. verifyFromMath directly inputs the value of challenge to the webpage. By changing the value of challenge to a PHP code fragment, I can execute the code on the webpage.
 
 After launching burp, turn off intercept and navigate to the contactus page (http://hw1.kapravelos.com:8089/?page=contactus). This generates the value of challenge. Now, turn intercept on and attempt to load captcha-verify (http://hw1.kapravelos.com:8089/?page=captcha-verify). Click the params tag of the prompt that appears. Note, the URL parameters answer and method are missing. I added these two parameters by clicking the "add" button, ensuring that it remained a URL variable, and entering their names. Double clicking the value field allowed me to change their values to a for answer and b for method. I then changed the value of challenge to: print_r(file_get_contents("flag.txt")). After clicking the forward button, the webpage is reloaded and displays the flag: flag{inj3ctingPHPis3vil}.
 
