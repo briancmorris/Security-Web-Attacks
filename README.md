@@ -3,9 +3,7 @@
 
 name: Brian C. Morris
 
-email: bcmorri3@ncsu.edu
-
-Unity id: bcmorri3
+email: briancmorris@live.com
 
 ## Level 1
 ### Vulnerability:
